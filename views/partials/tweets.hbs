@@ -1,0 +1,21 @@
+<section id="tweets">
+  {{>tweetForm}}
+
+  {{#each tweets as |t|}}
+    <div class="card w-100 mb-3">
+      <div class="card-body">
+        <p class="card-text">
+          {{date t.createdAt}}
+        </p>
+
+        <p class="card-text">
+          {{t.body}}
+        </p>
+
+        <img class="w-100 mb-1" src="{{t.image}}"/>
+
+        <a href="/{{t.user.username}}">@{{t.user.username}}</a>
+      </div>
+    </div>
+  {{/each}}
+</section>
