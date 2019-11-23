@@ -2,8 +2,6 @@ const User = require('../models/user.model');
 const mongoose = require('mongoose');
 const mailer = require('../config/mailer.config');
 
-module.exports.show = (req, res, next) => {}
-
 module.exports.new = (_, res) => {
   res.render('users/new', { user: new User() })
 }
@@ -62,45 +60,7 @@ module.exports.login = (_, res) => {
 }
 
 module.exports.doLogin = (req, res, next) => {
-  const { email, password } = req.body
-
-  if (!email || !password) {
-    return res.render('users/login', { user: req.body })
-  }
-
-  User.findOne({ email: email, validated: true })
-    .then(user => {
-      if (!user) {
-        res.render('users/login', {
-          user: req.body,
-          error: { password: 'invalid password' }
-        })
-      } else {
-        return user.checkPassword(password)
-          .then(match => {
-            if (!match) {
-              res.render('users/login', {
-                user: req.body,
-                error: { password: 'invalid password' }
-              })
-            } else {
-              req.session.user = user;
-              req.session.genericSuccess = 'Welcome!'
-              res.redirect('/');
-            }
-          })
-      }
-    })
-    .catch(error => {
-      if (error instanceof mongoose.Error.ValidationError) {
-        res.render('users/login', {
-          user: req.body,
-          error: error.error
-        })
-      } else {
-        next(error);
-      }
-    });
+  res.send('TODO')
 }
 
 module.exports.logout = (req, res) => {
