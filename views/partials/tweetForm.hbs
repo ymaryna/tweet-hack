@@ -1,6 +1,8 @@
 <form action="/tweets" method="POST" class="mb-4">
+  <h6>New Tweet</h6>
+
   <div class="form-group">
-    <textarea name="body" type="text" class="form-control {{#if error.body }}is-invalid{{/if}}" id="body" value="{{ tweet.body }}" rows="3"></textarea>
+    <textarea placeholder="tweet" name="body" type="text" class="form-control {{#if error.body }}is-invalid{{/if}}" id="body" value="{{ tweet.body }}" rows="3"></textarea>
   </div>
 
   <div class="form-group">

@@ -2,8 +2,6 @@ const User = require('../models/user.model');
 const mongoose = require('mongoose');
 const mailer = require('../config/mailer.config');
 
-module.exports.show = (req, res, next) => {}
-
 module.exports.new = (_, res) => {
   res.render('users/new', { user: new User() })
 }

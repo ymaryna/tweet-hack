@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 require('./comment.model')
+require('./like.model')
 
 const tweetSchema = new mongoose.Schema({
   user: {
@@ -20,13 +21,21 @@ const tweetSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 tweetSchema.pre('save', function (next) {
+  this.hashtags = this.body.match(/#[a-z]+/gi);
   next()
 });
 
 tweetSchema.virtual('comments', {
   ref: 'Comment',
-  localField: 'tweet',
-  foreignField: '_id',
+  localField: '_id',
+  foreignField: 'tweet',
+  justOne: false,
+});
+
+tweetSchema.virtual('likes', {
+  ref: 'Like',
+  localField: '_id',
+  foreignField: 'tweet',
   justOne: false,
 });
 
