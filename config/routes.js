@@ -3,6 +3,11 @@ const router = express.Router();
 const usersController = require('../controllers/users.controller')
 const tweetsController = require('../controllers/tweets.controller')
 const authMiddleware = require('../middlewares/auth.middleware')
+const multer = require('multer')
+const upload = multer({ dest: './public/uploads/' })
+const uploadCloud = require('../config/cloudinary.config.js');
+const passport = require('passport')
+
 
 module.exports = router;
 
@@ -13,7 +18,7 @@ router.post('/tweets/:id/like', authMiddleware.isAuthenticated, tweetsController
 router.post('/tweets', authMiddleware.isAuthenticated, tweetsController.create)
 
 router.get('/users/new', authMiddleware.isNotAuthenticated, usersController.new)
-router.post('/users', authMiddleware.isNotAuthenticated, usersController.create)
+router.post('/users', authMiddleware.isNotAuthenticated, uploadCloud.single('avatar'), usersController.create)
 router.get('/users/:token/validate', usersController.validate)
 
 router.get('/login', authMiddleware.isNotAuthenticated, usersController.login)
